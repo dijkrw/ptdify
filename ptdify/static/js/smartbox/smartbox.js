@@ -22,7 +22,8 @@ function getSearchData(req) {
 	return searchterms;
 }
 
-$(function() {
+$(function($) {
+	console.info(autocompleteUrl);
 		$( "#smartbox" )
 			// don't navigate away from the field on tab when selecting an item
 			.bind( "keydown", function( event ) {
