@@ -1,0 +1,40 @@
+= TODO =
+
+== Zoeken ==
+* xAx zoeken implementeren
+
+== Scope ==
+* Scope updaten als er wordt geTABed op een suggestie
+* Het updaten van de scope altijd op basis van  “known” metablokjes
+
+== Group-by (groeperen van Scope-resultaten) ==
+* Zoeken op keywords → group-by keywords
+* Zoekopdracht is verder een filter
+* Volgorde van keywords van zoekopdracht bepaalt volgorde group-by
+* Resultaten in zelfde volgorde als keywords
+
+== Submit ==
+* Focus op zoekvenster? Enter-button →  is de complete search-string submitten naar de server
+* Server geeft response : meerdere opties? 
+Ja → geef opties weer
+Nee → Voer enige operatie uit
+* TAB muteert volgorde blokjes niet
+* Submit zet de known-blokjes in hierarchische volgorde (indien operatie uitgevoerd wordt)
+* Het invoeren van volgende text in smartbox is doorzoeken met known-meta
+
+== Enter-toets ==
+* Submit van formulier → suggestielijst geopend en optie geselecteerd? Voer dan geselecteerde operatie uit
+
+== Helptips aka Captain Hindsight ==
+* Mogelijke meta's boven de smartbox in juiste volgorde weergeven
+* Initieel licht gekleurd, geselecteerd feller gekleurd. Voorgaande blokjes weergeven als overbodig
+* Mogelijke volgende invoeropties aangeven met gave hulpplaatjes
+** Keywords: vierkant blokje met een andere kleur per groep
+** Operations: Vierkantje met een symbol voor iedere operation (+ voor add, etc)
+** Unknown: Geen blokje, maar een textfield
+** Contact: Een vierkantje met een poppetje erin
+
+== Add ==
+* Keyword verplicht (datgene wat nieuw moet zijn)
+* Het keyword mag hierarchies alleen direct onder eventuele aanvullende meta-blokjes staan
+* Onderscheid maken tussen feedback in bijvoorbeeld hierarchische fout of .. 
