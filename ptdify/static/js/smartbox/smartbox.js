@@ -1,6 +1,3 @@
-var searchterms = {"query": []};
-var currentParamIndex = 0;
-
 function LinkedList() {
     this._length = 0;
     this._head = null;
@@ -88,6 +85,16 @@ LinkedList.prototype = {
         }
 
     },
+    
+    size: function() {
+	    return this._length;
+	    },
+    
+    reset: function() {
+	    this._head = null;
+	    this._length = 0;
+	    this.current = null;
+	    },
 
 	/**
 	* Converts the list into an array.
@@ -95,15 +102,16 @@ LinkedList.prototype = {
 	* @method toArray
 	*/
 	    toArray: function(){
+		    var searchterms = {"query": []};
 		var result = [],
 		    current = this._head;
 		
 		while(current){
-		    result.push(current.data);
+		    searchterms.query.push( [current.data.content, current.data.type]);
 		    current = current.next;
 		}
-		
-		return result;
+		console.info(searchterms);
+		return searchterms;
 	    },
     
 	/**
@@ -126,19 +134,15 @@ LinkedList.prototype = {
 		}	
 };
 
-function metaBlock(name) {
-	this.name = name;
+function metaBlock(content, type) {
+	this.content = content;
+	this.type = type;
 	}	
 metaBlock.prototype.output = function() {
-	return this.name;
+	return "content:"+this.content+" type:"+this.type;
 	}	
 
 var list = new LinkedList();
-list.add(new metaBlock("red"));
-list.add(new metaBlock("orange"));
-list.add(new metaBlock("yellow"));
-
-console.info(list.toString());
 
 /**
 	This function reads a json response item and returns html for the autocompletion
@@ -156,9 +160,14 @@ function itemToHTML(data) {
 }
 
 function getSearchData(req) {
-	
-	searchterms.query[currentParamIndex] = [req.term, "New"];
-	return searchterms;
+	//Check if last item is of type "New"
+	lastItem = list.item(list.size()-1);
+	if(lastItem && lastItem.type == "New") {
+		list.item(list.size()-1).content = req.term;
+	} else {
+		list.add(new metaBlock(req.term, "New"));	
+	}
+	return list.toArray();
 }
 
 $(function($) {
@@ -198,14 +207,11 @@ $(function($) {
 					return false;
 				},
 				select: function( event, ui ) {
-					searchterms.query = [];
-					$('#searchtags ul').empty();
-					currentParamIndex = 0;
+					list = new LinkedList();
 					$.each(ui.item, function(key, val) {
 						if(key>=0 && val!== undefined) {
-						 	$('#searchtags ul').append("<li>"+val[0]+"</li>");					
-						 	searchterms.query.push([val[0], val[1]]);
-						 	currentParamIndex++;
+							list.add(new metaBlock(val[0], val[1]));
+							list.output();
 						}
 					});				
 					this.value = "";
