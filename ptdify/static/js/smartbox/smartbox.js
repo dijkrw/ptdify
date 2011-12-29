@@ -44,21 +44,21 @@ function getSearchData(req) {
 
 //Executed when document is loaded
 $(function($) {
-	//Initialize list of meta-blocks
-
-	
 	//Define and bind methods for smartbox
 		$( "#smartbox" )
 			// don't navigate away from the field on tab when selecting an item
 			.bind( "keydown", function( event ) {
-				if ( event.keyCode === $.ui.keyCode.TAB &&
-						$( this ).data( "autocomplete" ).menu.active ) {
-						
+				if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( "autocomplete" ).menu.active ) {
 					event.preventDefault();
 				} else if(event.keyCode === $.ui.keyCode.ENTER) {
 					console.info('enter key pressed');
 				} else if(event.keyCode === $.ui.keyCode.BACKSPACE) {
 					console.info('backspace key pressed');
+					//don't interrupt normal backspace usage when typing text
+					if(!$( this ).data( "autocomplete" ).menu.active) {
+						list.remove(list.size()-1);
+						list.toHTML();	
+					}
 				}
 			})
 			//Invoked internally by the autocompleter plugin.
