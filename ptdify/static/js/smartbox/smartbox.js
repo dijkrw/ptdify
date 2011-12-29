@@ -1,139 +1,6 @@
-function LinkedList() {
-    this._length = 0;
-    this._head = null;
-}
-LinkedList.prototype = {
-
-    add: function (data){
-
-        //create a new node, place data in
-        var node = {
-                data: data,
-                next: null
-            },
-
-            //used to traverse the structure
-            current;
-
-        //special case: no items in the list yet
-        if (this._head === null){
-            this._head = node;
-        } else {
-            current = this._head;
-
-            while(current.next){
-                current = current.next;
-            }
-
-            current.next = node;
-        }
-
-        //don't forget to update the count
-        this._length++;
-
-    },
-    
-    item: function(index){
-
-        //check for out-of-bounds values
-        if (index > -1 && index < this._length){
-            var current = this._head,
-                i = 0;
-
-            while(i++ < index){
-                current = current.next;
-            }
-
-            return current.data;
-        } else {
-            return null;
-        }
-    },
-
-    remove: function(index){
-
-        //check for out-of-bounds values
-        if (index > -1 && index < this._length){
-
-            var current = this._head,
-                previous,
-                i = 0;
-
-            //special case: removing first item
-            if (index === 0){
-                this._head = current.next;
-            } else {
-
-                //find the right location
-                while(i++ < index){
-                    previous = current;
-                    current = current.next;
-                }
-
-                //skip over the item to remove
-                previous.next = current.next;
-            }
-
-            //decrement the length
-            this._length--;
-
-            //return the value
-            return current.data;            
-
-        } else {
-            return null;
-        }
-
-    },
-    
-    size: function() {
-	    return this._length;
-	    },
-    
-    reset: function() {
-	    this._head = null;
-	    this._length = 0;
-	    this.current = null;
-	    },
-
-	/**
-	* Converts the list into an array.
-	* @return {Array} An array containing all of the data in the list.
-	* @method toArray
-	*/
-	    toArray: function(){
-		    var searchterms = {"query": []};
-		var result = [],
-		    current = this._head;
-		
-		while(current){
-		    searchterms.query.push( [current.data.content, current.data.type]);
-		    current = current.next;
-		}
-		console.info(searchterms);
-		return searchterms;
-	    },
-    
-	/**
-	* Converts the list into a string representation.
-	* @return {String} A string representation of the list.
-	* @method toString
-	*/
-	    toString: function(){
-		return this.toArray().toString();
-	    },    
-    
-	    output: function() {
-		    var current = this._head;
-		    var i=0;
-		    while(i < this._length){
-			console.info(current.data.output());    
-			current = current.next;
-			i++;
-			}
-		}	
-};
-
+/**
+ * Object representing a meta-block 
+ */
 function metaBlock(content, type) {
 	this.content = content;
 	this.type = type;
@@ -142,10 +9,9 @@ metaBlock.prototype.output = function() {
 	return "content:"+this.content+" type:"+this.type;
 	}	
 
-var list = new LinkedList();
-
 /**
 	This function reads a json response item and returns html for the autocompletion
+	TODO: re-write using the linkedlist structure
 */
 function itemToHTML(data) {
 	data.htmlValue = "<a>";
@@ -159,6 +25,9 @@ function itemToHTML(data) {
 	return data;
 }
 
+/**
+ * Prepares the list of meta-blocks for the Ajax-call. Returns an array which can be passed to the {data} attribute of {jQuery.ajax()}.
+ */
 function getSearchData(req) {
 	//Check if last item is of type "New"
 	lastItem = list.item(list.size()-1);
@@ -170,8 +39,12 @@ function getSearchData(req) {
 	return list.toArray();
 }
 
+//Executed when document is loaded
 $(function($) {
-	console.info(autocompleteUrl);
+	//Initialize list of meta-blocks
+
+	
+	//Define and bind methods for smartbox
 		$( "#smartbox" )
 			// don't navigate away from the field on tab when selecting an item
 			.bind( "keydown", function( event ) {
@@ -185,9 +58,11 @@ $(function($) {
 					console.info('backspace key pressed');
 				}
 			})
+			//Invoked internally by the autocompleter plugin.
 			.autocomplete({
 				minLength: 0,
 
+				// {source} is a data-object which is parsed as the response item. The response here is an Ajax-call based on the searchstring which is composed from the meta-blocks.
 				source:
 				function(req, parseResult) {
 					jQuery.ajax({
@@ -206,8 +81,13 @@ $(function($) {
 					// prevent value inserted on focus
 					return false;
 				},
+				
+				//This method is invoked when an item in the dropdown menu is selected
 				select: function( event, ui ) {
+					//Reset list of meta-blocks
 					list = new LinkedList();
+					
+					//Iterate through response and re-build blocks of the selection
 					$.each(ui.item, function(key, val) {
 						if(key>=0 && val!== undefined) {
 							list.add(new metaBlock(val[0], val[1]));
@@ -217,6 +97,7 @@ $(function($) {
 					this.value = "";
 					return false;
 				}
+			//Overwrites the default implementation of the autocompleter plugin. Enables us to insert custom html-elements into the response dropdown-menu.	
 			}).data( "autocomplete" )._renderItem = function( ul, item ) {
 	
 			parsedData = itemToHTML(item);
