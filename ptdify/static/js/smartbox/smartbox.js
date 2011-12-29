@@ -1,6 +1,119 @@
 var searchterms = {"query": []};
 var currentParamIndex = 0;
 
+function LinkedList() {
+    this._length = 0;
+    this._head = null;
+}
+LinkedList.prototype = {
+
+    add: function (data){
+
+        //create a new node, place data in
+        var node = {
+                data: data,
+                next: null
+            },
+
+            //used to traverse the structure
+            current;
+
+        //special case: no items in the list yet
+        if (this._head === null){
+            this._head = node;
+        } else {
+            current = this._head;
+
+            while(current.next){
+                current = current.next;
+            }
+
+            current.next = node;
+        }
+
+        //don't forget to update the count
+        this._length++;
+
+    },
+    
+    item: function(index){
+
+        //check for out-of-bounds values
+        if (index > -1 && index < this._length){
+            var current = this._head,
+                i = 0;
+
+            while(i++ < index){
+                current = current.next;
+            }
+
+            return current.data;
+        } else {
+            return null;
+        }
+    },
+
+    remove: function(index){
+
+        //check for out-of-bounds values
+        if (index > -1 && index < this._length){
+
+            var current = this._head,
+                previous,
+                i = 0;
+
+            //special case: removing first item
+            if (index === 0){
+                this._head = current.next;
+            } else {
+
+                //find the right location
+                while(i++ < index){
+                    previous = current;
+                    current = current.next;
+                }
+
+                //skip over the item to remove
+                previous.next = current.next;
+            }
+
+            //decrement the length
+            this._length--;
+
+            //return the value
+            return current.data;            
+
+        } else {
+            return null;
+        }
+
+    },
+
+    output: function() {
+	    var current = this._head;
+	    var i=0;
+            while(i < this._length){
+		console.info(current.data.output());    
+                current = current.next;
+		i++;
+		}
+	}	
+};
+
+function metaBlock(name) {
+	this.name = name;
+	}	
+metaBlock.prototype.output = function() {
+	return this.name;
+	}	
+
+var list = new LinkedList();
+list.add(new metaBlock("red"));
+list.add(new metaBlock("orange"));
+list.add(new metaBlock("yellow"));
+
+list.output();
+
 /**
 	This function reads a json response item and returns html for the autocompletion
 */
