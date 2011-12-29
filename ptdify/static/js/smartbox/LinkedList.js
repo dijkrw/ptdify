@@ -107,18 +107,31 @@ LinkedList.prototype = {
 	* @method toArray
 	*/
 	    toArray: function(){
-		    var searchterms = {"query": []};
-		var result = [],
-		    current = this._head;
+		var searchterms = {"query": []};
+		var current = this._head;
 		
 		while(current){
 		    searchterms.query.push( [current.data.content, current.data.type]);
 		    current = current.next;
 		}
-		console.info(searchterms);
 		return searchterms;
 	    },
     
+	/**
+	* Builds the meta-blocks html and injects it on the page
+	*    
+	*/    
+	toHTML: function() {
+		var current = this._head;
+		var i=0;
+		$(META_BLOCKS_CONTAINER).empty();
+		while(i < this._length){		
+			$(META_BLOCKS_CONTAINER).append(current.data.toHTML());
+			current = current.next;
+			i++;
+		}
+	},    
+	    
 	/**
 	* Converts the list into a string representation.
 	* @return {String} A string representation of the list.

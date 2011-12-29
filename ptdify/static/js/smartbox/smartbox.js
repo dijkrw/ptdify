@@ -4,6 +4,9 @@
 function metaBlock(content, type) {
 	this.content = content;
 	this.type = type;
+	}
+metaBlock.prototype.toHTML = function() {
+	return $('<li class="'+this.type+'">'+this.content+'</li>');
 	}	
 metaBlock.prototype.output = function() {
 	return "content:"+this.content+" type:"+this.type;
@@ -93,7 +96,8 @@ $(function($) {
 							list.add(new metaBlock(val[0], val[1]));
 							list.output();
 						}
-					});				
+					});	
+					list.toHTML();	
 					this.value = "";
 					return false;
 				}
