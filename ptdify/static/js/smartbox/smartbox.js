@@ -89,15 +89,41 @@ LinkedList.prototype = {
 
     },
 
-    output: function() {
-	    var current = this._head;
-	    var i=0;
-            while(i < this._length){
-		console.info(current.data.output());    
-                current = current.next;
-		i++;
+	/**
+	* Converts the list into an array.
+	* @return {Array} An array containing all of the data in the list.
+	* @method toArray
+	*/
+	    toArray: function(){
+		var result = [],
+		    current = this._head;
+		
+		while(current){
+		    result.push(current.data);
+		    current = current.next;
 		}
-	}	
+		
+		return result;
+	    },
+    
+	/**
+	* Converts the list into a string representation.
+	* @return {String} A string representation of the list.
+	* @method toString
+	*/
+	    toString: function(){
+		return this.toArray().toString();
+	    },    
+    
+	    output: function() {
+		    var current = this._head;
+		    var i=0;
+		    while(i < this._length){
+			console.info(current.data.output());    
+			current = current.next;
+			i++;
+			}
+		}	
 };
 
 function metaBlock(name) {
@@ -112,7 +138,7 @@ list.add(new metaBlock("red"));
 list.add(new metaBlock("orange"));
 list.add(new metaBlock("yellow"));
 
-list.output();
+console.info(list.toString());
 
 /**
 	This function reads a json response item and returns html for the autocompletion
