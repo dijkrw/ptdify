@@ -125,7 +125,11 @@ LinkedList.prototype = {
 		var current = this._head;
 		var i=0;
 		$(META_BLOCKS_CONTAINER).empty();
-		while(i < this._length){		
+		
+		$("#taghelp ul li.chosen").removeClass("chosen");
+		
+		while(i < this._length){	
+			$("#taghelp #"+current.data.type).addClass("chosen");	
 			$(META_BLOCKS_CONTAINER).append(current.data.toHTML());
 			current = current.next;
 			i++;
