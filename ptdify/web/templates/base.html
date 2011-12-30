@@ -22,40 +22,46 @@
 </head>
 <body>
 
-<div id="taghelp">
-	<ul>
-		<li id="Realm" class="Realm">Realm</li>
-		<li id="Area" class="Area">Area</li>
-		<li id="Context" class="Context">Context</li>
-		<li id="Project" class="Project">Project</li>
-		<li id="Contact" class="Contact">Contact</li>
-		<li id="Keyword" class="Keyword">Keyword</li>
-		<li id="Action" class="Action">Action</li>
-	</ul>	
-</div>
-<div class="clear"></div>
+<div id="container">
 
-<div id="smartboxWrapper">
-	<div id="searchtags">
-		<ul></ul>
+	<div id="header"></div>
+
+	<div id="taghelp">
+		<ul>
+			<li id="Realm" class="Realm">Realm</li>
+			<li id="Area" class="Area">Area</li>
+			<li id="Context" class="Context">Context</li>
+			<li id="Project" class="Project">Project</li>
+			<li id="Action" class="Action">Action</li>
+			<li id="Contact" class="Contact">Contact</li>
+			<li id="Operation" class="Operation">Operation</li>
+			<li id="Keyword" class="Keyword">Keyword</li>
+			
+		</ul>	
 	</div>
-
-	<div class="ui-widget left">
-		<form id="smartboxform">
-
-			<input id="smartbox" value="" size="25" />
-		</form>
-	</div>
-
 	<div class="clear"></div>
-</div>
 
-{% block content %}{% endblock %}
-<ul id="menu">
-    <li><a href="{% url 'action_list' %}">actions</a></li>
-    <li><a href="{% url 'area_list' %}">areas</a></li>
-    <li><a href="{% url 'context_list' %}">contexts</a></li>
-    <li><a href="{% url 'project_list' %}">projects</a></li>
-</ul>
+	<div id="smartboxWrapper">
+		<div id="searchtags">
+			<ul></ul>
+		</div>
+
+		<div class="ui-widget left">
+			<form id="smartboxform">
+				<input id="smartbox" value="" size="25" />
+			</form>
+		</div>
+
+		<div class="clear"></div>
+	</div>
+
+	{% block content %}{% endblock %}
+	<ul id="menu">
+	    <li><a href="{% url 'action_list' %}">actions</a></li>
+	    <li><a href="{% url 'area_list' %}">areas</a></li>
+	    <li><a href="{% url 'context_list' %}">contexts</a></li>
+	    <li><a href="{% url 'project_list' %}">projects</a></li>
+	</ul>
+</div>	
 </body>
 </html>

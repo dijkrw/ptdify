@@ -1,8 +1,23 @@
 html {
 	background:#fff;
-	font-family:Tahoma;
+	font-family:Arial;
 	font-size:12pt;
+	width:100%;
 	}
+	
+#header {
+	margin-top:50px;
+	margin-bottom:50px;
+	width:100%;
+	height:105px;
+	background: url('../img/header.png') center no-repeat;
+	}	
+	
+#container {
+	width:900px;
+	margin:0px auto;
+	
+	}	
 	
 #searchtags ul {
 	padding: 0px;
@@ -10,6 +25,7 @@ html {
 	list-style-type:none;
 	display:block;	
 	float:left;
+	color:#fff;
 	}	
 	
 #searchtags ul li {
@@ -22,7 +38,7 @@ html {
 
 	
 #taghelp {
-	width:500px;
+	width:600px;
 	}
 	
 #taghelp ul {
@@ -31,6 +47,7 @@ html {
 	list-style-type:none;
 	display:block;	
 	float:left;	
+	color:#fff;
 	}
 	
 #taghelp ul li {
@@ -46,39 +63,51 @@ html {
 
 #taghelp ul li.chosen {
 	opacity:1;
+	/*text-decoration:line-through;*/
 	}
 	
+ul li.Unknown {
+	background:#fff;
+	color:#000;
+	}		
+	
 ul li.Realm {
-	background:#A83819;
+	background:#e7573f;
 	}	
 	
 ul li.Area {
-	background:#FFDD45;
+	background:#f6993e;
 	}	
 	
 ul li.Project {
-	background:#0062B3;
+	background:#c9e73e;
 	}	
 	
 ul li.Context {
-	background:#7770FF;
+	background:#f6d13f;
 	}
 
 ul li.Contact {
-	background:#8C6156;
+	background:#3cb1e7;
 	}
 	
 ul li.Action {
-	background:#5EB304;
+	background:#3ce76c;
 	}
 	
+ul li.Operation {
+	background:#7e3fe7;
+	}	
+	
 ul li.Keyword {
-	background:#e4e4e4;
+	background:#858585;
 	}	
 	
 #smartboxWrapper {
 	border:1px solid #e4e4e4;
 	padding:2px;
+	margin-top:10px;
+	margin-bottom:10px;
 	}	
 	
 #smartbox {
@@ -88,6 +117,7 @@ ul li.Keyword {
 	border:none;
 	padding:5px 5px 5px 5px;
 	margin:0px 2px 0px 0px;
+	width:880px;
 	}	
 	
 .left {
