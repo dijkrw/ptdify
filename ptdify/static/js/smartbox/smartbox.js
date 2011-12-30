@@ -20,11 +20,11 @@ function itemToHTML(data) {
 	data.htmlValue = "<a>";
 	$.each(data, function(key, val) {
 		if(key >= 0 && val != undefined) { 
-			data.htmlValue += "<span>"+val[0]+": "+val[1]+"</span>";
+			data.htmlValue += "<div class=\"resultitem "+val[1]+" \" >"+val[0]+"</div>";
 		}
 
 	});
-	data.htmlValue += "</a>";			
+	data.htmlValue += "<div class=\"clear\"></div></a>";			
 	return data;
 }
 
@@ -103,10 +103,10 @@ $(function($) {
 				}
 			//Overwrites the default implementation of the autocompleter plugin. Enables us to insert custom html-elements into the response dropdown-menu.	
 			}).data( "autocomplete" )._renderItem = function( ul, item ) {
-	
+			console.info(item);
 			parsedData = itemToHTML(item);
 	
-			return $( "<li></li>" )
+			return $( '<li></li>' )
 				.data( "item.autocomplete", item )
 				.append( parsedData.htmlValue )
 				.appendTo( ul );

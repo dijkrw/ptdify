@@ -28,7 +28,7 @@ html {
 	color:#fff;
 	}	
 	
-#searchtags ul li {
+#searchtags ul li{
 	height:25px;
 	margin:0px 2px 0px 0px;
 	padding:5px 5px 0px 5px;
@@ -36,6 +36,15 @@ html {
 	display:block;
 	}
 
+div.resultitem {
+	width:auto;
+	height:25px;
+	margin:0px 2px 0px 0px;
+	padding:3px 5px 2px 5px;
+	float:left;
+	display:block;	
+	color:#fff;
+	}
 	
 #taghelp {
 	width:600px;
@@ -66,40 +75,40 @@ html {
 	/*text-decoration:line-through;*/
 	}
 	
-ul li.Unknown {
+ul li.Unknown, a div.Unknown {
 	background:#fff;
 	color:#000;
 	}		
 	
-ul li.Realm {
+ul li.Realm, a div.Realm {
 	background:#e7573f;
 	}	
 	
-ul li.Area {
+ul li.Area, a div.Area {
 	background:#f6993e;
 	}	
 	
-ul li.Project {
+ul li.Project, a div.Project {
 	background:#c9e73e;
 	}	
 	
-ul li.Context {
+ul li.Context, a div.Context {
 	background:#f6d13f;
 	}
 
-ul li.Contact {
+ul li.Contact, a div.Contact {
 	background:#3cb1e7;
 	}
 	
-ul li.Action {
+ul li.Action, a div.Action {
 	background:#3ce76c;
 	}
 	
-ul li.Operation {
+ul li.Operation, a div.Operation {
 	background:#7e3fe7;
 	}	
 	
-ul li.Keyword {
+ul li.Keyword, a div.Keyword {
 	background:#858585;
 	}	
 	
@@ -117,7 +126,7 @@ ul li.Keyword {
 	border:none;
 	padding:5px 5px 5px 5px;
 	margin:0px 2px 0px 0px;
-	width:880px;
+	width:100px;
 	}	
 	
 .left {
